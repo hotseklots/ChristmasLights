@@ -1,0 +1,186 @@
+# Reading D:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
+# do ledpixelController_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying D:/intelFPGA_lite/17.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {D:/intelFPGA_lite/17.1/projects/generatedIP/dualPortedRam.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:10:31 on Dec 16,2017
+# vcom -reportprogress 300 -93 -work work D:/intelFPGA_lite/17.1/projects/generatedIP/dualPortedRam.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package altera_mf_components
+# -- Compiling entity dualPortedRam
+# -- Compiling architecture SYN of dualportedram
+# End time: 16:10:32 on Dec 16,2017, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {D:/intelFPGA_lite/17.1/projects/vhdl/ws281xController.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:10:32 on Dec 16,2017
+# vcom -reportprogress 300 -93 -work work D:/intelFPGA_lite/17.1/projects/vhdl/ws281xController.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package NUMERIC_STD
+# -- Compiling entity ws281xController
+# -- Compiling architecture RTL of ws281xController
+# -- Loading package altera_mf_components
+# -- Loading entity dualPortedRam
+# End time: 16:10:32 on Dec 16,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vsim rtl_work.dualportedram
+# vsim rtl_work.dualportedram 
+# Start time: 16:10:36 on Dec 16,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading altera_mf.altera_mf_components
+# Loading rtl_work.dualportedram(syn)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_common_conversion(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.altsyncram(translated)
+vsim rtl_work.ws281xcontroller
+# End time: 16:10:44 on Dec 16,2017, Elapsed time: 0:00:08
+# Errors: 0, Warnings: 0
+# vsim rtl_work.ws281xcontroller 
+# Start time: 16:10:44 on Dec 16,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.numeric_std(body)
+# Loading altera_mf.altera_mf_components
+# Loading rtl_work.ws281xcontroller(rtl)
+# Loading rtl_work.dualportedram(syn)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_common_conversion(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.altsyncram(translated)
+vsim rtl_work.ws281xcontroller
+# End time: 16:10:46 on Dec 16,2017, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vsim rtl_work.ws281xcontroller 
+# Start time: 16:10:46 on Dec 16,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.numeric_std(body)
+# Loading altera_mf.altera_mf_components
+# Loading rtl_work.ws281xcontroller(rtl)
+# Loading rtl_work.dualportedram(syn)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_common_conversion(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.altsyncram(translated)
+add wave -position end  sim:/ws281xcontroller/clk
+add wave -position end  sim:/ws281xcontroller/rst_n
+add wave -position end  sim:/ws281xcontroller/pixelsConnected
+add wave -position end  sim:/ws281xcontroller/pixelAddres
+add wave -position end  sim:/ws281xcontroller/pixelData
+add wave -position end  sim:/ws281xcontroller/pixelDataWrite
+add wave -position end  sim:/ws281xcontroller/dout
+add wave -position end  sim:/ws281xcontroller/pixelData_i
+add wave -position end  sim:/ws281xcontroller/writeAddress_i
+add wave -position end  sim:/ws281xcontroller/readAddress_i
+add wave -position end  sim:/ws281xcontroller/readAddress_conv_i
+add wave -position end  sim:/ws281xcontroller/readData_i
+add wave -position end  sim:/ws281xcontroller/wren_i
+add wave -position end  sim:/ws281xcontroller/state
+add wave -position end  sim:/ws281xcontroller/counter
+add wave -position end  sim:/ws281xcontroller/bitcounter
+add wave -position end  sim:/ws281xcontroller/ledBufRegister
+add wave -position end  sim:/ws281xcontroller/dout_i
+add wave -position end  sim:/ws281xcontroller/zeroHighTimeNs
+add wave -position end  sim:/ws281xcontroller/zeroLowTimeNs
+add wave -position end  sim:/ws281xcontroller/oneHighTimeNs
+add wave -position end  sim:/ws281xcontroller/oneLowTimeNs
+add wave -position end  sim:/ws281xcontroller/resetTimeNs
+
+force -freeze sim:/ws281xcontroller/rst_n 0 0
+force -freeze sim:/ws281xcontroller/pixelsConnected 5 0
+force -freeze sim:/ws281xcontroller/pixelAddres 0000000000000000 0
+force -freeze sim:/ws281xcontroller/pixelData 000000000000000000000000 0
+force -freeze sim:/ws281xcontroller/pixelDataWrite 0 0
+force -freeze sim:/ws281xcontroller/clk 1 0, 0 {10 ps} -r 20
+run
+# ** Warning: Warning: READ_DURING_WRITE_MODE_MIXED_PORTS is assumed as OLD_DATA
+#    Time: 0 ps  Iteration: 0  Instance: /ws281xcontroller/dataBuffer/altsyncram_component
+force -freeze sim:/ws281xcontroller/rst_n 1 0
+run
+run
+run
+run
+run
+force -freeze sim:/ws281xcontroller/pixelData 000000000000000000000001 0
+force -freeze sim:/ws281xcontroller/pixelDataWrite 1 0
+run
+run
+run
+force -freeze sim:/ws281xcontroller/pixelData 000000000000000000000010 0
+force -freeze sim:/ws281xcontroller/pixelAddres 0000000000000001 0
+run
+force -freeze sim:/ws281xcontroller/pixelAddres 0000000000000010 0
+force -freeze sim:/ws281xcontroller/pixelData 000000000000000000000011 0
+run
+force -freeze sim:/ws281xcontroller/pixelAddres 0003 0
+# Value length (4) does not equal array index length (16).
+# 
+# ** Error: (vsim-4011) Invalid force value: 0003 0.
+# 
+force -freeze sim:/ws281xcontroller/pixelData 000004 0
+# Value length (6) does not equal array index length (24).
+# 
+# ** Error: (vsim-4011) Invalid force value: 000004 0.
+# 
+run
+force -freeze sim:/ws281xcontroller/pixelAddres 0003 0
+# Value length (4) does not equal array index length (16).
+# 
+# ** Error: (vsim-4011) Invalid force value: 0003 0.
+# 
+force -freeze sim:/ws281xcontroller/pixelData 000004 0
+# Value length (6) does not equal array index length (24).
+# 
+# ** Error: (vsim-4011) Invalid force value: 000004 0.
+# 
+run
+run
+force -freeze sim:/ws281xcontroller/pixelAddres 0003 0
+# Value length (4) does not equal array index length (16).
+# 
+# ** Error: (vsim-4011) Invalid force value: 0003 0.
+# 
+force -freeze sim:/ws281xcontroller/pixelAddres 0003 0
+# Value length (4) does not equal array index length (16).
+# 
+# ** Error: (vsim-4011) Invalid force value: 0003 0.
+# 
+force -freeze sim:/ws281xcontroller/pixelAddres 0003 0
+force -freeze sim:/ws281xcontroller/pixelData 000004 0
+run
+force -freeze sim:/ws281xcontroller/pixelAddres 0004 0
+force -freeze sim:/ws281xcontroller/pixelData 000005 0
+run
+force -freeze sim:/ws281xcontroller/pixelAddres 0005 0
+force -freeze sim:/ws281xcontroller/pixelData 000006 0
+run
+run
+run
+run
+run
+run
+# End time: 16:16:19 on Dec 16,2017, Elapsed time: 0:05:33
+# Errors: 6, Warnings: 1
