@@ -7,7 +7,7 @@ use work.types_pkg.all;
 
 entity ws281xController is
 
-generic ( clockPeriodNs: integer := 20; --50Mhz
+generic ( clockPeriodNs: integer := 5; --200Mhz
 			 maxPixels: integer:= 1000 );
 			 
 port ( 
@@ -46,7 +46,7 @@ signal dout_i: std_logic;
 
 begin
 
-dataBuffer: work.dualPortedRam port map (
+dataBuffer: entity work.dualPortedRam port map (
 		clk,
 	   pixelData_i,
 		readAddress_conv_i,
@@ -66,8 +66,8 @@ begin
 	if(rst_n = '0') then
 		dout_i <= '0';
 		counter <= 0;
-		state <= ws281x_initial;
-	
+		state <= ws281x_initial;	
+		
 	elsif(rising_edge(clk)) then	
 		case state is
 		when ws281x_initial =>
@@ -94,11 +94,9 @@ begin
 					readAddress_i <= 0;
 				end if;
 			end if;
-			
-		
-
 			counter <= 0;		
 			dout_i <= '0';
+			
 		when ws281x_zerobit_high =>
 			if(counter < zeroHighTimeNs/ clockPeriodNs) then
 				counter <= counter +1;
@@ -131,6 +129,7 @@ begin
 			  state <= ws281x_onebit_low;
 			  dout_i <= '0';
 			end if;
+			
 		when  ws281x_onebit_low =>
 			if(counter < oneLowTimeNs / clockPeriodNs) then
 				counter <= counter +1;
@@ -141,6 +140,7 @@ begin
 			  state <= ws281x_initial;
 			  dout_i <= '0';
 			end if;
+			
 		when ws281x_reset =>
 		   if(counter < resetTimeNs / clockPeriodNs) then
 				counter <= counter +1;
@@ -153,6 +153,7 @@ begin
 			  ledBufRegister <= readData_i(23 downto 0);
 			  dout_i <= '0';
 			end if;
+			
 	   when others => state <= ws281x_initial;		
 		end case;	
 	end if;

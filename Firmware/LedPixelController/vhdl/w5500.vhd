@@ -45,33 +45,39 @@ end process;
 
 p_getData: process (sclk_i, rst_n) 
 begin
-	if(rst_n = '0') then
-		counter <= 0;
-		state <= W5500_init;
-	
-	elsif(rising_edge(sclk_i)) then	
-		case state is
-		when W5500_init =>		
-			state <= W5500_acquire;
-			outputData(to_integer(unsigned(inputdata(39 downto 32)))).addres <= inputData(31 downto 24);
-			outputData(to_integer(unsigned(inputdata(39 downto 32)))).data <= inputData(23 downto 0);
-			outputData(to_integer(unsigned(inputdata(39 downto 32)))).writeEnable <= inputData(34);		
-		when W5500_acquire =>
-			if(counter<40) then
-				counter <= counter +1;
-				state <= W5500_acquire;
-			else
-				counter <=0;
-				state <= W5500_init;
-			end if;
-			inputData(0) <= miso;
-			inputData(39 downto 1) <= inputdata(38 downto 0);
-		
-		when W5500_reset => state <= W5500_init;		
-
-	   when others => state <= W5500_init;		
-		end case;	
-	end if;
+--	if(rst_n = '0') then
+--		counter <= 0;
+--		state <= W5500_init;
+--	
+--	elsif(rising_edge(sclk_i)) then	
+--		case state is
+--		when W5500_init =>		
+--			state <= W5500_acquire;
+--			outputData(to_integer(unsigned(inputdata(39 downto 32)))).addres <= inputData(31 downto 24);
+--			outputData(to_integer(unsigned(inputdata(39 downto 32)))).data <= inputData(23 downto 0);
+--			outputData(to_integer(unsigned(inputdata(39 downto 32)))).writeEnable <= inputData(34);
+--		when w5500_setMAC =>
+--
+--
+--when w5500_setIP =>
+--when w5500_setGateWay =>
+--when w5500_setMask =>		
+--		when W5500_acquire =>
+--			if(counter<40) then
+--				counter <= counter +1;
+--				state <= W5500_acquire;
+--			else
+--				counter <=0;
+--				state <= W5500_init;
+--			end if;
+--			inputData(0) <= miso;
+--			inputData(39 downto 1) <= inputdata(38 downto 0);
+--		
+--		when W5500_reset => state <= W5500_init;		
+--
+--	   when others => state <= W5500_init;		
+--		end case;	
+--	end if;
 end process;
 
 
