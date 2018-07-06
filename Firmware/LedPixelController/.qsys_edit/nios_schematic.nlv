@@ -1,8 +1,25 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst unsaved.clk_0 -pg 1 -lvl 1 -y 30
-preplace inst unsaved -pg 1 -lvl 1 -y 40 -regy -20
-preplace netloc EXPORT<net_container>unsaved</net_container>(SLAVE)unsaved.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
-preplace netloc EXPORT<net_container>unsaved</net_container>(SLAVE)unsaved.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-levelinfo -pg 1 0 50 270
-levelinfo -hier unsaved 60 90 260
+preplace inst nios.jtag_uart_0 -pg 1 -lvl 3 -y 190
+preplace inst nios.GPIO -pg 1 -lvl 3 -y 410
+preplace inst nios -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst nios.RAM -pg 1 -lvl 3 -y 30
+preplace inst nios.SPI_ENET -pg 1 -lvl 3 -y 510
+preplace inst nios.CPU -pg 1 -lvl 2 -y 440
+preplace inst nios.clk_0 -pg 1 -lvl 1 -y 460
+preplace inst nios.ROM -pg 1 -lvl 3 -y 110
+preplace inst nios.CPU.reset_bridge -pg 1
+preplace inst nios.CPU.clock_bridge -pg 1
+preplace inst nios.SPI_EEPROM -pg 1 -lvl 3 -y 290
+preplace inst nios.CPU.cpu -pg 1
+preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)SPI_ENET.external,(SLAVE)nios.spi_enet_external) 1 0 3 NJ 580 NJ 580 NJ
+preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)SPI_EEPROM.irq,(SLAVE)jtag_uart_0.irq,(MASTER)CPU.irq,(SLAVE)SPI_ENET.irq) 1 2 1 760
+preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)ROM.reset1,(SLAVE)SPI_ENET.reset,(SLAVE)GPIO.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)CPU.reset,(SLAVE)SPI_EEPROM.reset,(SLAVE)RAM.reset1,(MASTER)clk_0.clk_reset) 1 1 2 360 380 800
+preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)ROM.clk1,(SLAVE)SPI_EEPROM.clk,(SLAVE)SPI_ENET.clk,(SLAVE)CPU.clk,(SLAVE)RAM.clk1,(SLAVE)GPIO.clk,(SLAVE)jtag_uart_0.clk,(MASTER)clk_0.clk) 1 1 2 340 360 780
+preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)clk_0.clk_in,(SLAVE)nios.clk) 1 0 1 NJ
+preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)nios.gpio,(SLAVE)GPIO.external_connection) 1 0 3 NJ 340 NJ 340 NJ
+preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)nios.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc INTERCONNECT<net_container>nios</net_container>(SLAVE)CPU.debug_mem_slave,(SLAVE)RAM.s1,(SLAVE)SPI_EEPROM.spi_control_port,(SLAVE)SPI_ENET.spi_control_port,(MASTER)CPU.data_master,(MASTER)CPU.instruction_master,(SLAVE)GPIO.s1,(SLAVE)ROM.s1,(SLAVE)jtag_uart_0.avalon_jtag_slave) 1 1 2 380 400 820
+preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)nios.spi_eeprom_external,(SLAVE)SPI_EEPROM.external) 1 0 3 NJ 320 NJ 320 NJ
+levelinfo -pg 1 0 130 1010
+levelinfo -hier nios 140 170 500 850 1000

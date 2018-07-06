@@ -101,6 +101,7 @@ controller: for I in 0 to 15 generate
 
 ws281xData(I).addres <= gpio(31 downto 24);
 ws281xData(I).data <= gpio(23 downto 0);
+ws281xData(I).writeEnable <= '1';
 
 ws281x: entity work.ws281xController port map (
 	clk,

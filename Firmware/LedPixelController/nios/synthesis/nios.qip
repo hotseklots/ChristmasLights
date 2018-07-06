@@ -2,7 +2,7 @@ set_global_assignment -entity "nios" -library "nios" -name IP_TOOL_NAME "Qsys"
 set_global_assignment -entity "nios" -library "nios" -name IP_TOOL_VERSION "17.1"
 set_global_assignment -entity "nios" -library "nios" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "nios" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../nios.sopcinfo"]
-set_global_assignment -entity "nios" -library "nios" -name SLD_INFO "QSYS_NAME nios HAS_SOPCINFO 1 GENERATION_ID 1530910986"
+set_global_assignment -entity "nios" -library "nios" -name SLD_INFO "QSYS_NAME nios HAS_SOPCINFO 1 GENERATION_ID 1530913440"
 set_global_assignment -library "nios" -name MISC_FILE [file join $::quartus(qip_path) "../nios.cmp"]
 set_global_assignment -library "nios" -name SLD_FILE [file join $::quartus(qip_path) "nios.regmap"]
 set_global_assignment -library "nios" -name SLD_FILE [file join $::quartus(qip_path) "nios.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_DISPLAY_
 set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTUzMDkxMDk4Ng==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTUzMDkxMzQ0MA==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0UxMEUyMkM4::QXV0byBERVZJQ0U="
 set_global_assignment -entity "nios" -library "nios" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::OA==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
