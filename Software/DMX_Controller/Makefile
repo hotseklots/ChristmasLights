@@ -142,8 +142,15 @@ ACDS_VERSION := 17.1
 ELF := DMX_Controller.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := hello_world.c
-CXX_SRCS :=
+C_SRCS :=
+CXX_SRCS += W5500_Lib/src/Dhcp.cpp
+CXX_SRCS += W5500_Lib/src/Ethernet2.cpp
+CXX_SRCS += W5500_Lib/src/EthernetClient.cpp
+CXX_SRCS += W5500_Lib/src/utility/socket.cpp
+CXX_SRCS += W5500_Lib/src/utility/w5500.cpp
+CXX_SRCS += hello_world.cpp
+CXX_SRCS += W5500_Lib/src/EthernetUdp2.cpp
+CXX_SRCS += W5500_Lib/src/IPAddress.cpp
 ASM_SRCS :=
 
 

@@ -15,10 +15,13 @@
  */
 
 #include <stdio.h>
+#include "W5500_Lib/src/Ethernet2.h"
+
+unsigned char mac[6] = {0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x02};
 
 int main()
 {
-
+  Ethernet.begin(mac);
 
   return 0;
 }

@@ -13,7 +13,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "Arduino.h"
 
 #include "utility/w5500.h"
 //#if defined(W5500_ETHERNET_SHIELD)

@@ -15,8 +15,8 @@
 #define	W5500_H_INCLUDED
 
 #define MAX_SOCK_NUM 8
-#include <Arduino.h>
-#include <SPI.h>
+
+#include <stdint.h>
 
 extern uint8_t SPI_CS;
 
