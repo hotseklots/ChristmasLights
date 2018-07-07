@@ -36,6 +36,7 @@
 #define udp_h
 
 #include "IPAddress.h"
+#include "Stream.h"
 
 class UDP : public Stream {
 
@@ -51,9 +52,6 @@ public:
   virtual int beginPacket(IPAddress ip, uint16_t port) =0;
   // Start building up a packet to send to the remote host specific in host and port
   // Returns 1 if successful, 0 if there was a problem resolving the hostname or port
-  virtual int beginPacket(const char *host, uint16_t port) =0;
-  // Finish off this packet and send it
-  // Returns 1 if the packet was sent successfully, 0 if there was an error
   virtual int endPacket() =0;
   // Write a single byte into the packet
   virtual size_t write(uint8_t) =0;

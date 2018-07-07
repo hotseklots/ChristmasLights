@@ -146,11 +146,13 @@ C_SRCS :=
 CXX_SRCS += W5500_Lib/src/Dhcp.cpp
 CXX_SRCS += W5500_Lib/src/Ethernet2.cpp
 CXX_SRCS += W5500_Lib/src/EthernetClient.cpp
-CXX_SRCS += W5500_Lib/src/utility/socket.cpp
-CXX_SRCS += W5500_Lib/src/utility/w5500.cpp
 CXX_SRCS += hello_world.cpp
 CXX_SRCS += W5500_Lib/src/EthernetUdp2.cpp
 CXX_SRCS += W5500_Lib/src/IPAddress.cpp
+CXX_SRCS += W5500_Lib/src/Stream.cpp
+CXX_SRCS += W5500_Lib/src/timer.cpp
+CXX_SRCS += W5500_Lib/src/socket.cpp
+CXX_SRCS += W5500_Lib/src/w5500.cpp
 ASM_SRCS :=
 
 

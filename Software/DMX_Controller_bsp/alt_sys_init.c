@@ -4,7 +4,7 @@
  * Machine generated for CPU 'CPU' in SOPC Builder design 'nios'
  * SOPC Builder design path: D:/Users/marcel/Documents/GitHub/ChristmasLights/Firmware/LedPixelController/nios.sopcinfo
  *
- * Generated: Sat Jul 07 16:06:30 CEST 2018
+ * Generated: Sat Jul 07 18:39:46 CEST 2018
  */
 
 /*
@@ -61,6 +61,7 @@
 #include "altera_nios2_gen2_irq.h"
 #include "altera_avalon_jtag_uart.h"
 #include "altera_avalon_spi.h"
+#include "altera_avalon_timer.h"
 
 /*
  * Allocate the device storage
@@ -70,6 +71,7 @@ ALTERA_NIOS2_GEN2_IRQ_INSTANCE ( CPU, CPU);
 ALTERA_AVALON_JTAG_UART_INSTANCE ( JTAG_UART_0, jtag_uart_0);
 ALTERA_AVALON_SPI_INSTANCE ( SPI_EEPROM, SPI_EEPROM);
 ALTERA_AVALON_SPI_INSTANCE ( SPI_ENET, SPI_ENET);
+ALTERA_AVALON_TIMER_INSTANCE ( SYSTEMTICK, SystemTick);
 
 /*
  * Initialize the interrupt controller devices
@@ -92,6 +94,7 @@ void alt_irq_init ( const void* base )
 
 void alt_sys_init( void )
 {
+    ALTERA_AVALON_TIMER_INIT ( SYSTEMTICK, SystemTick);
     ALTERA_AVALON_JTAG_UART_INIT ( JTAG_UART_0, jtag_uart_0);
     ALTERA_AVALON_SPI_INIT ( SPI_EEPROM, SPI_EEPROM);
     ALTERA_AVALON_SPI_INIT ( SPI_ENET, SPI_ENET);

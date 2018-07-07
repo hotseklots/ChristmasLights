@@ -11,10 +11,9 @@
 #define ethernet_h
 
 #include <inttypes.h>
-#include "utility/w5500.h"
+#include "w5500.h"
 #include "IPAddress.h"
 #include "EthernetClient.h"
-#include "EthernetServer.h"
 #include "Dhcp.h"
 
 

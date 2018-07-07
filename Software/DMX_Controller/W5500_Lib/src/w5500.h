@@ -337,9 +337,9 @@ private:
 
 private:
   // could do inline optimizations
-  static inline void initSS()  { pinMode(SPI_CS, OUTPUT); }
-  static inline void setSS()   {  digitalWrite(SPI_CS, LOW); }
-  static inline void resetSS() {  digitalWrite(SPI_CS, HIGH); }
+  static inline void initSS()  { /*pinMode(SPI_CS, OUTPUT);*/ }
+  static inline void setSS()   {  /*digitalWrite(SPI_CS, LOW);*/ }
+  static inline void resetSS() {  /*digitalWrite(SPI_CS, HIGH);*/ }
 };
 
 extern W5500Class w5500;

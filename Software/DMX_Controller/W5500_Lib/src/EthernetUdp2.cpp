@@ -30,11 +30,10 @@
  * by Arduino.org team
  */
 
-#include "utility/w5500.h"
-#include "utility/socket.h"
+#include "w5500.h"
+#include "socket.h"
 #include "Ethernet2.h"
 #include "Udp.h"
-#include "Dns.h"
 
 /* Constructor */
 EthernetUDP::EthernetUDP() : _sock(MAX_SOCK_NUM) {}
@@ -78,22 +77,6 @@ void EthernetUDP::stop()
 
   EthernetClass::_server_port[_sock] = 0;
   _sock = MAX_SOCK_NUM;
-}
-
-int EthernetUDP::beginPacket(const char *host, uint16_t port)
-{
-  // Look up the host first
-  int ret = 0;
-  DNSClient dns;
-  IPAddress remote_addr;
-
-  dns.begin(Ethernet.dnsServerIP());
-  ret = dns.getHostByName(host, remote_addr);
-  if (ret == 1) {
-    return beginPacket(remote_addr, port);
-  } else {
-    return ret;
-  }
 }
 
 int EthernetUDP::beginPacket(IPAddress ip, uint16_t port)

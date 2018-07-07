@@ -136,6 +136,19 @@ architecture rtl of nios is
 		);
 	end component nios_SPI_ENET;
 
+	component nios_SystemTick is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- address
+			writedata  : in  std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			readdata   : out std_logic_vector(15 downto 0);                    -- readdata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			irq        : out std_logic                                         -- irq
+		);
+	end component nios_SystemTick;
+
 	component nios_jtag_uart_0 is
 		port (
 			clk            : in  std_logic                     := 'X';             -- clk
@@ -213,7 +226,12 @@ architecture rtl of nios is
 			SPI_ENET_spi_control_port_read            : out std_logic;                                        -- read
 			SPI_ENET_spi_control_port_readdata        : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
 			SPI_ENET_spi_control_port_writedata       : out std_logic_vector(15 downto 0);                    -- writedata
-			SPI_ENET_spi_control_port_chipselect      : out std_logic                                         -- chipselect
+			SPI_ENET_spi_control_port_chipselect      : out std_logic;                                        -- chipselect
+			SystemTick_s1_address                     : out std_logic_vector(2 downto 0);                     -- address
+			SystemTick_s1_write                       : out std_logic;                                        -- write
+			SystemTick_s1_readdata                    : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
+			SystemTick_s1_writedata                   : out std_logic_vector(15 downto 0);                    -- writedata
+			SystemTick_s1_chipselect                  : out std_logic                                         -- chipselect
 		);
 	end component nios_mm_interconnect_0;
 
@@ -224,6 +242,7 @@ architecture rtl of nios is
 			receiver0_irq : in  std_logic                     := 'X'; -- irq
 			receiver1_irq : in  std_logic                     := 'X'; -- irq
 			receiver2_irq : in  std_logic                     := 'X'; -- irq
+			receiver3_irq : in  std_logic                     := 'X'; -- irq
 			sender_irq    : out std_logic_vector(31 downto 0)         -- irq
 		);
 	end component nios_irq_mapper;
@@ -333,6 +352,11 @@ architecture rtl of nios is
 	signal mm_interconnect_0_gpio_s1_address                               : std_logic_vector(1 downto 0);  -- mm_interconnect_0:GPIO_s1_address -> GPIO:address
 	signal mm_interconnect_0_gpio_s1_write                                 : std_logic;                     -- mm_interconnect_0:GPIO_s1_write -> mm_interconnect_0_gpio_s1_write:in
 	signal mm_interconnect_0_gpio_s1_writedata                             : std_logic_vector(31 downto 0); -- mm_interconnect_0:GPIO_s1_writedata -> GPIO:writedata
+	signal mm_interconnect_0_systemtick_s1_chipselect                      : std_logic;                     -- mm_interconnect_0:SystemTick_s1_chipselect -> SystemTick:chipselect
+	signal mm_interconnect_0_systemtick_s1_readdata                        : std_logic_vector(15 downto 0); -- SystemTick:readdata -> mm_interconnect_0:SystemTick_s1_readdata
+	signal mm_interconnect_0_systemtick_s1_address                         : std_logic_vector(2 downto 0);  -- mm_interconnect_0:SystemTick_s1_address -> SystemTick:address
+	signal mm_interconnect_0_systemtick_s1_write                           : std_logic;                     -- mm_interconnect_0:SystemTick_s1_write -> mm_interconnect_0_systemtick_s1_write:in
+	signal mm_interconnect_0_systemtick_s1_writedata                       : std_logic_vector(15 downto 0); -- mm_interconnect_0:SystemTick_s1_writedata -> SystemTick:writedata
 	signal mm_interconnect_0_spi_enet_spi_control_port_chipselect          : std_logic;                     -- mm_interconnect_0:SPI_ENET_spi_control_port_chipselect -> SPI_ENET:spi_select
 	signal mm_interconnect_0_spi_enet_spi_control_port_readdata            : std_logic_vector(15 downto 0); -- SPI_ENET:data_to_cpu -> mm_interconnect_0:SPI_ENET_spi_control_port_readdata
 	signal mm_interconnect_0_spi_enet_spi_control_port_address             : std_logic_vector(2 downto 0);  -- mm_interconnect_0:SPI_ENET_spi_control_port_address -> SPI_ENET:mem_addr
@@ -356,6 +380,7 @@ architecture rtl of nios is
 	signal irq_mapper_receiver0_irq                                        : std_logic;                     -- jtag_uart_0:av_irq -> irq_mapper:receiver0_irq
 	signal irq_mapper_receiver1_irq                                        : std_logic;                     -- SPI_ENET:irq -> irq_mapper:receiver1_irq
 	signal irq_mapper_receiver2_irq                                        : std_logic;                     -- SPI_EEPROM:irq -> irq_mapper:receiver2_irq
+	signal irq_mapper_receiver3_irq                                        : std_logic;                     -- SystemTick:irq -> irq_mapper:receiver3_irq
 	signal cpu_irq_irq                                                     : std_logic_vector(31 downto 0); -- irq_mapper:sender_irq -> CPU:irq
 	signal rst_controller_reset_out_reset                                  : std_logic;                     -- rst_controller:reset_out -> [RAM:reset, ROM:reset, irq_mapper:reset, mm_interconnect_0:CPU_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_reset_out_reset_req                              : std_logic;                     -- rst_controller:reset_req -> [CPU:reset_req, RAM:reset_req, ROM:reset_req, rst_translator:reset_req_in]
@@ -363,11 +388,12 @@ architecture rtl of nios is
 	signal mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read_ports_inv  : std_logic;                     -- mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read:inv -> jtag_uart_0:av_read_n
 	signal mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write_ports_inv : std_logic;                     -- mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write:inv -> jtag_uart_0:av_write_n
 	signal mm_interconnect_0_gpio_s1_write_ports_inv                       : std_logic;                     -- mm_interconnect_0_gpio_s1_write:inv -> GPIO:write_n
+	signal mm_interconnect_0_systemtick_s1_write_ports_inv                 : std_logic;                     -- mm_interconnect_0_systemtick_s1_write:inv -> SystemTick:write_n
 	signal mm_interconnect_0_spi_enet_spi_control_port_read_ports_inv      : std_logic;                     -- mm_interconnect_0_spi_enet_spi_control_port_read:inv -> SPI_ENET:read_n
 	signal mm_interconnect_0_spi_enet_spi_control_port_write_ports_inv     : std_logic;                     -- mm_interconnect_0_spi_enet_spi_control_port_write:inv -> SPI_ENET:write_n
 	signal mm_interconnect_0_spi_eeprom_spi_control_port_read_ports_inv    : std_logic;                     -- mm_interconnect_0_spi_eeprom_spi_control_port_read:inv -> SPI_EEPROM:read_n
 	signal mm_interconnect_0_spi_eeprom_spi_control_port_write_ports_inv   : std_logic;                     -- mm_interconnect_0_spi_eeprom_spi_control_port_write:inv -> SPI_EEPROM:write_n
-	signal rst_controller_reset_out_reset_ports_inv                        : std_logic;                     -- rst_controller_reset_out_reset:inv -> [CPU:reset_n, GPIO:reset_n, SPI_EEPROM:reset_n, SPI_ENET:reset_n, jtag_uart_0:rst_n]
+	signal rst_controller_reset_out_reset_ports_inv                        : std_logic;                     -- rst_controller_reset_out_reset:inv -> [CPU:reset_n, GPIO:reset_n, SPI_EEPROM:reset_n, SPI_ENET:reset_n, SystemTick:reset_n, jtag_uart_0:rst_n]
 
 begin
 
@@ -478,6 +504,18 @@ begin
 			SS_n          => spi_enet_external_SS_n                                       --                 .export
 		);
 
+	systemtick : component nios_SystemTick
+		port map (
+			clk        => clk_clk,                                         --   clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,        -- reset.reset_n
+			address    => mm_interconnect_0_systemtick_s1_address,         --    s1.address
+			writedata  => mm_interconnect_0_systemtick_s1_writedata,       --      .writedata
+			readdata   => mm_interconnect_0_systemtick_s1_readdata,        --      .readdata
+			chipselect => mm_interconnect_0_systemtick_s1_chipselect,      --      .chipselect
+			write_n    => mm_interconnect_0_systemtick_s1_write_ports_inv, --      .write_n
+			irq        => irq_mapper_receiver3_irq                         --   irq.irq
+		);
+
 	jtag_uart_0 : component nios_jtag_uart_0
 		port map (
 			clk            => clk_clk,                                                         --               clk.clk
@@ -554,7 +592,12 @@ begin
 			SPI_ENET_spi_control_port_read            => mm_interconnect_0_spi_enet_spi_control_port_read,            --                                .read
 			SPI_ENET_spi_control_port_readdata        => mm_interconnect_0_spi_enet_spi_control_port_readdata,        --                                .readdata
 			SPI_ENET_spi_control_port_writedata       => mm_interconnect_0_spi_enet_spi_control_port_writedata,       --                                .writedata
-			SPI_ENET_spi_control_port_chipselect      => mm_interconnect_0_spi_enet_spi_control_port_chipselect       --                                .chipselect
+			SPI_ENET_spi_control_port_chipselect      => mm_interconnect_0_spi_enet_spi_control_port_chipselect,      --                                .chipselect
+			SystemTick_s1_address                     => mm_interconnect_0_systemtick_s1_address,                     --                   SystemTick_s1.address
+			SystemTick_s1_write                       => mm_interconnect_0_systemtick_s1_write,                       --                                .write
+			SystemTick_s1_readdata                    => mm_interconnect_0_systemtick_s1_readdata,                    --                                .readdata
+			SystemTick_s1_writedata                   => mm_interconnect_0_systemtick_s1_writedata,                   --                                .writedata
+			SystemTick_s1_chipselect                  => mm_interconnect_0_systemtick_s1_chipselect                   --                                .chipselect
 		);
 
 	irq_mapper : component nios_irq_mapper
@@ -564,6 +607,7 @@ begin
 			receiver0_irq => irq_mapper_receiver0_irq,       -- receiver0.irq
 			receiver1_irq => irq_mapper_receiver1_irq,       -- receiver1.irq
 			receiver2_irq => irq_mapper_receiver2_irq,       -- receiver2.irq
+			receiver3_irq => irq_mapper_receiver3_irq,       -- receiver3.irq
 			sender_irq    => cpu_irq_irq                     --    sender.irq
 		);
 
@@ -639,6 +683,8 @@ begin
 	mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write_ports_inv <= not mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write;
 
 	mm_interconnect_0_gpio_s1_write_ports_inv <= not mm_interconnect_0_gpio_s1_write;
+
+	mm_interconnect_0_systemtick_s1_write_ports_inv <= not mm_interconnect_0_systemtick_s1_write;
 
 	mm_interconnect_0_spi_enet_spi_control_port_read_ports_inv <= not mm_interconnect_0_spi_enet_spi_control_port_read;
 

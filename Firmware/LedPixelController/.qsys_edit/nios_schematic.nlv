@@ -13,13 +13,13 @@ preplace inst nios.CPU.clock_bridge -pg 1
 preplace inst nios.SPI_EEPROM -pg 1 -lvl 3 -y 290
 preplace inst nios.CPU.cpu -pg 1
 preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)SPI_ENET.external,(SLAVE)nios.spi_enet_external) 1 0 3 NJ 580 NJ 580 NJ
-preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)SPI_EEPROM.irq,(SLAVE)jtag_uart_0.irq,(MASTER)CPU.irq,(SLAVE)SPI_ENET.irq) 1 2 1 760
-preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)ROM.reset1,(SLAVE)SPI_ENET.reset,(SLAVE)GPIO.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)CPU.reset,(SLAVE)SPI_EEPROM.reset,(SLAVE)RAM.reset1,(MASTER)clk_0.clk_reset) 1 1 2 360 380 800
-preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)ROM.clk1,(SLAVE)SPI_EEPROM.clk,(SLAVE)SPI_ENET.clk,(SLAVE)CPU.clk,(SLAVE)RAM.clk1,(SLAVE)GPIO.clk,(SLAVE)jtag_uart_0.clk,(MASTER)clk_0.clk) 1 1 2 340 360 780
+preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)jtag_uart_0.irq,(SLAVE)SPI_EEPROM.irq,(MASTER)CPU.irq,(SLAVE)SPI_ENET.irq) 1 2 1 760
+preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)GPIO.external_connection,(SLAVE)nios.gpio) 1 0 3 NJ 340 NJ 340 NJ
+preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)SPI_EEPROM.reset,(SLAVE)GPIO.reset,(SLAVE)RAM.reset1,(SLAVE)CPU.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)SPI_ENET.reset,(SLAVE)ROM.reset1,(MASTER)clk_0.clk_reset) 1 1 2 360 380 800
+preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)nios.reset) 1 0 1 NJ
 preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)clk_0.clk_in,(SLAVE)nios.clk) 1 0 1 NJ
-preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)nios.gpio,(SLAVE)GPIO.external_connection) 1 0 3 NJ 340 NJ 340 NJ
-preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)nios.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-preplace netloc INTERCONNECT<net_container>nios</net_container>(SLAVE)CPU.debug_mem_slave,(SLAVE)RAM.s1,(SLAVE)SPI_EEPROM.spi_control_port,(SLAVE)SPI_ENET.spi_control_port,(MASTER)CPU.data_master,(MASTER)CPU.instruction_master,(SLAVE)GPIO.s1,(SLAVE)ROM.s1,(SLAVE)jtag_uart_0.avalon_jtag_slave) 1 1 2 380 400 820
+preplace netloc FAN_OUT<net_container>nios</net_container>(SLAVE)ROM.clk1,(SLAVE)CPU.clk,(MASTER)clk_0.clk,(SLAVE)RAM.clk1,(SLAVE)SPI_ENET.clk,(SLAVE)SPI_EEPROM.clk,(SLAVE)jtag_uart_0.clk,(SLAVE)GPIO.clk) 1 1 2 340 360 780
 preplace netloc EXPORT<net_container>nios</net_container>(SLAVE)nios.spi_eeprom_external,(SLAVE)SPI_EEPROM.external) 1 0 3 NJ 320 NJ 320 NJ
+preplace netloc INTERCONNECT<net_container>nios</net_container>(SLAVE)ROM.s1,(SLAVE)GPIO.s1,(SLAVE)SPI_ENET.spi_control_port,(MASTER)CPU.data_master,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)CPU.debug_mem_slave,(SLAVE)SPI_EEPROM.spi_control_port,(SLAVE)RAM.s1,(MASTER)CPU.instruction_master) 1 1 2 380 400 820
 levelinfo -pg 1 0 130 1010
 levelinfo -hier nios 140 170 500 850 1000

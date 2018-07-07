@@ -1,7 +1,6 @@
 #ifndef ethernetclient_h
 #define ethernetclient_h
-#include "Arduino.h"	
-#include "Print.h"
+
 #include "Client.h"
 #include "IPAddress.h"
 
@@ -13,7 +12,6 @@ public:
 
   uint8_t status();
   virtual int connect(IPAddress ip, uint16_t port);
-  virtual int connect(const char *host, uint16_t port);
   virtual size_t write(uint8_t);
   virtual size_t write(const uint8_t *buf, size_t size);
   virtual int available();
@@ -29,7 +27,6 @@ public:
 
   friend class EthernetServer;
   
-  using Print::write;
 
 private:
   static uint16_t _srcport;

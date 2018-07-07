@@ -1,12 +1,13 @@
 // DHCP Library v0.3 - April 25, 2009
 // Author: Jordan Terrell - blog.jordanterrell.com
 
-#include "utility/w5500.h"
+#include "w5500.h"
 
 #include <string.h>
 #include <stdlib.h>
 #include "Dhcp.h"
-#include "utility/util.h"
+#include "timer.h"
+#include "util.h"
 
 int DhcpClass::beginWithDHCP(uint8_t *mac, unsigned long timeout, unsigned long responseTimeout)
 {
@@ -35,11 +36,10 @@ void DhcpClass::reset_DHCP_lease(){
 int DhcpClass::request_DHCP_lease(){
     
     uint8_t messageType = 0;
-  
     
   
     // Pick an initial transaction ID
-    _dhcpTransactionId = random(1UL, 2000UL);
+    _dhcpTransactionId = 1000;//random(1UL, 2000UL);
     _dhcpInitialTransactionId = _dhcpTransactionId;
 
     _dhcpUdpSocket.stop();

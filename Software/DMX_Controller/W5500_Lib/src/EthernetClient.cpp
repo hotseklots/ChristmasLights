@@ -1,16 +1,14 @@
-#include "utility/w5500.h"
-#include "utility/socket.h"
+#include "w5500.h"
+#include "socket.h"
 
 extern "C" {
   #include "string.h"
 }
 
-#include "Arduino.h"
-
+#include "timer.h"
 #include "Ethernet2.h"
 #include "EthernetClient.h"
-#include "EthernetServer.h"
-#include "Dns.h"
+
 
 uint16_t EthernetClient::_srcport = 1024;
 
@@ -18,21 +16,6 @@ EthernetClient::EthernetClient() : _sock(MAX_SOCK_NUM) {
 }
 
 EthernetClient::EthernetClient(uint8_t sock) : _sock(sock) {
-}
-
-int EthernetClient::connect(const char* host, uint16_t port) {
-  // Look up the host first
-  int ret = 0;
-  DNSClient dns;
-  IPAddress remote_addr;
-
-  dns.begin(Ethernet.dnsServerIP());
-  ret = dns.getHostByName(host, remote_addr);
-  if (ret == 1) {
-    return connect(remote_addr, port);
-  } else {
-    return ret;
-  }
 }
 
 int EthernetClient::connect(IPAddress ip, uint16_t port) {
@@ -76,11 +59,9 @@ size_t EthernetClient::write(uint8_t b) {
 
 size_t EthernetClient::write(const uint8_t *buf, size_t size) {
   if (_sock == MAX_SOCK_NUM) {
-    setWriteError();
     return 0;
   }
   if (!send(_sock, buf, size)) {
-    setWriteError();
     return 0;
   }
   return size;

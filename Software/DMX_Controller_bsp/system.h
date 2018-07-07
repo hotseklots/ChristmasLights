@@ -4,7 +4,7 @@
  * Machine generated for CPU 'CPU' in SOPC Builder design 'nios'
  * SOPC Builder design path: D:/Users/marcel/Documents/GitHub/ChristmasLights/Firmware/LedPixelController/nios.sopcinfo
  *
- * Generated: Sat Jul 07 16:06:30 CEST 2018
+ * Generated: Sat Jul 07 18:39:45 CEST 2018
  */
 
 /*
@@ -137,6 +137,7 @@
 #define __ALTERA_AVALON_ONCHIP_MEMORY2
 #define __ALTERA_AVALON_PIO
 #define __ALTERA_AVALON_SPI
+#define __ALTERA_AVALON_TIMER
 #define __ALTERA_NIOS2_GEN2
 
 
@@ -324,14 +325,40 @@
 
 
 /*
+ * SystemTick configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_SystemTick altera_avalon_timer
+#define SYSTEMTICK_ALWAYS_RUN 1
+#define SYSTEMTICK_BASE 0x6000
+#define SYSTEMTICK_COUNTER_SIZE 32
+#define SYSTEMTICK_FIXED_PERIOD 1
+#define SYSTEMTICK_FREQ 50000000
+#define SYSTEMTICK_IRQ 3
+#define SYSTEMTICK_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define SYSTEMTICK_LOAD_VALUE 124999
+#define SYSTEMTICK_MULT 2.0E-8
+#define SYSTEMTICK_NAME "/dev/SystemTick"
+#define SYSTEMTICK_PERIOD 125000
+#define SYSTEMTICK_PERIOD_UNITS "clocks"
+#define SYSTEMTICK_RESET_OUTPUT 0
+#define SYSTEMTICK_SNAPSHOT 1
+#define SYSTEMTICK_SPAN 32
+#define SYSTEMTICK_TICKS_PER_SEC 400
+#define SYSTEMTICK_TIMEOUT_PULSE_OUTPUT 0
+#define SYSTEMTICK_TYPE "altera_avalon_timer"
+
+
+/*
  * hal configuration
  *
  */
 
 #define ALT_INCLUDE_INSTRUCTION_RELATED_EXCEPTION_API
 #define ALT_MAX_FD 32
-#define ALT_SYS_CLK none
-#define ALT_TIMESTAMP_CLK none
+#define ALT_SYS_CLK SYSTEMTICK
+#define ALT_TIMESTAMP_CLK SYSTEMTICK
 
 
 /*

@@ -4,8 +4,8 @@
  * by Arduino.org team
  */
  
-#include "utility/w5500.h"
-#include "utility/socket.h"
+#include "w5500.h"
+#include "socket.h"
 
 static uint16_t local_port;
 
@@ -325,7 +325,6 @@ void flush(SOCKET s) {
 
 uint16_t igmpsend(SOCKET s, const uint8_t * buf, uint16_t len)
 {
-  uint8_t status=0;
   uint16_t ret=0;
 
   if (len > w5500.SSIZE) 
@@ -341,7 +340,7 @@ uint16_t igmpsend(SOCKET s, const uint8_t * buf, uint16_t len)
 
   while ( (w5500.readSnIR(s) & SnIR::SEND_OK) != SnIR::SEND_OK ) 
   {
-    status = w5500.readSnSR(s);
+    w5500.readSnSR(s);
     if (w5500.readSnIR(s) & SnIR::TIMEOUT)
     {
       /* in case of igmp, if send fails, then socket closed */
