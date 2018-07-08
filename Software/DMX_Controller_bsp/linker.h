@@ -4,7 +4,7 @@
  * Machine generated for CPU 'CPU' in SOPC Builder design 'nios'
  * SOPC Builder design path: D:/Users/marcel/Documents/GitHub/ChristmasLights/Firmware/LedPixelController/nios.sopcinfo
  *
- * Generated: Sat Jul 07 16:06:30 CEST 2018
+ * Generated: Sat Jul 07 21:19:13 CEST 2018
  */
 
 /*

@@ -70,7 +70,7 @@ module nios_CPU_cpu_test_bench (
   input   [ 31: 0] W_wr_data;
   input   [ 31: 0] av_ld_data_aligned_unfiltered;
   input            clk;
-  input   [ 14: 0] d_address;
+  input   [ 15: 0] d_address;
   input   [  3: 0] d_byteenable;
   input            d_read;
   input            d_write;

@@ -15,9 +15,6 @@ uint16_t EthernetClient::_srcport = 1024;
 EthernetClient::EthernetClient() : _sock(MAX_SOCK_NUM) {
 }
 
-EthernetClient::EthernetClient(uint8_t sock) : _sock(sock) {
-}
-
 int EthernetClient::connect(IPAddress ip, uint16_t port) {
   if (_sock != MAX_SOCK_NUM)
     return 0;
@@ -100,10 +97,6 @@ int EthernetClient::peek() {
   return b;
 }
 
-void EthernetClient::flush() {
-  ::flush(_sock);
-}
-
 void EthernetClient::stop() {
   if (_sock == MAX_SOCK_NUM)
     return;
@@ -126,7 +119,7 @@ void EthernetClient::stop() {
 
 uint8_t EthernetClient::connected() {
   if (_sock == MAX_SOCK_NUM) return 0;
-  
+
   uint8_t s = status();
   return !(s == SnSR::LISTEN || s == SnSR::CLOSED || s == SnSR::FIN_WAIT ||
     (s == SnSR::CLOSE_WAIT && !available()));

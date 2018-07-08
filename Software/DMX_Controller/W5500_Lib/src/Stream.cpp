@@ -90,39 +90,6 @@ void Stream::setTimeout(unsigned long timeout)  // sets the maximum number of mi
   _timeout = timeout;
 }
 
- // find returns true if the target string is found
-bool  Stream::find(char *target)
-{
-  return findUntil(target, strlen(target), NULL, 0);
-}
-
-// reads data from the stream until the target string of given length is found
-// returns true if target string is found, false if timed out
-bool Stream::find(char *target, size_t length)
-{
-  return findUntil(target, length, NULL, 0);
-}
-
-// as find but search ends if the terminator string is found
-bool  Stream::findUntil(char *target, char *terminator)
-{
-  return findUntil(target, strlen(target), terminator, strlen(terminator));
-}
-
-// reads data from the stream until the target string of the given length is found
-// search terminated if the terminator string is found
-// returns true if target string is found, false if terminated or timed out
-bool Stream::findUntil(char *target, size_t targetLen, char *terminator, size_t termLen)
-{
-  if (terminator == NULL) {
-    MultiTarget t[1] = {{target, targetLen, 0}};
-    return findMulti(t, 1) == 0 ? true : false;
-  } else {
-    MultiTarget t[2] = {{target, targetLen, 0}, {terminator, termLen, 0}};
-    return findMulti(t, 2) == 0 ? true : false;
-  }
-}
-
 // returns the first valid (long) integer value from the current position.
 // lookahead determines how parseInt looks ahead in the stream.
 // See LookaheadMode enumeration at the top of the file.

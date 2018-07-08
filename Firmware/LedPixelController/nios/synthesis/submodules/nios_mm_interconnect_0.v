@@ -9,7 +9,7 @@
 module nios_mm_interconnect_0 (
 		input  wire        clk_0_clk_clk,                             //                       clk_0_clk.clk
 		input  wire        CPU_reset_reset_bridge_in_reset_reset,     // CPU_reset_reset_bridge_in_reset.reset
-		input  wire [14:0] CPU_data_master_address,                   //                 CPU_data_master.address
+		input  wire [15:0] CPU_data_master_address,                   //                 CPU_data_master.address
 		output wire        CPU_data_master_waitrequest,               //                                .waitrequest
 		input  wire [3:0]  CPU_data_master_byteenable,                //                                .byteenable
 		input  wire        CPU_data_master_read,                      //                                .read
@@ -41,7 +41,7 @@ module nios_mm_interconnect_0 (
 		output wire [31:0] jtag_uart_0_avalon_jtag_slave_writedata,   //                                .writedata
 		input  wire        jtag_uart_0_avalon_jtag_slave_waitrequest, //                                .waitrequest
 		output wire        jtag_uart_0_avalon_jtag_slave_chipselect,  //                                .chipselect
-		output wire [9:0]  RAM_s1_address,                            //                          RAM_s1.address
+		output wire [10:0] RAM_s1_address,                            //                          RAM_s1.address
 		output wire        RAM_s1_write,                              //                                .write
 		input  wire [31:0] RAM_s1_readdata,                           //                                .readdata
 		output wire [31:0] RAM_s1_writedata,                          //                                .writedata
@@ -601,7 +601,7 @@ module nios_mm_interconnect_0 (
 	wire   [0:0] avalon_st_adapter_007_out_0_error;                                         // avalon_st_adapter_007:out_0_error -> ROM_s1_agent:rdata_fifo_sink_error
 
 	altera_merlin_master_translator #(
-		.AV_ADDRESS_W                (15),
+		.AV_ADDRESS_W                (16),
 		.AV_DATA_W                   (32),
 		.AV_BURSTCOUNT_W             (1),
 		.AV_BYTEENABLE_W             (4),
@@ -849,7 +849,7 @@ module nios_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (10),
+		.AV_ADDRESS_W                   (11),
 		.AV_DATA_W                      (32),
 		.UAV_DATA_W                     (32),
 		.AV_BURSTCOUNT_W                (1),

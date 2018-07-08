@@ -19,7 +19,13 @@ int DhcpClass::beginWithDHCP(uint8_t *mac, unsigned long timeout, unsigned long 
     _responseTimeout = responseTimeout;
 
     // zero out _dhcpMacAddr
-    memset(_dhcpMacAddr, 0, 6); 
+    _dhcpMacAddr[0]=0;
+    _dhcpMacAddr[1]=0;
+    _dhcpMacAddr[2]=0;
+    _dhcpMacAddr[3]=0;
+    _dhcpMacAddr[4]=0;
+    _dhcpMacAddr[5]=0;
+
     reset_DHCP_lease();
 
     memcpy((void*)_dhcpMacAddr, (void*)mac, 6);
@@ -29,7 +35,10 @@ int DhcpClass::beginWithDHCP(uint8_t *mac, unsigned long timeout, unsigned long 
 
 void DhcpClass::reset_DHCP_lease(){
     // zero out _dhcpSubnetMask, _dhcpGatewayIp, _dhcpLocalIp, _dhcpDhcpServerIp, _dhcpDnsServerIp
-    memset(_dhcpLocalIp, 0, 20);
+	_dhcpLocalIp[0]=0;
+	_dhcpLocalIp[1]=0;
+	_dhcpLocalIp[2]=0;
+	_dhcpLocalIp[3]=0;
 }
 
 //return:0 on error, 1 if request is sent and response is received
@@ -137,7 +146,6 @@ void DhcpClass::presend_DHCP()
 void DhcpClass::send_DHCP_MESSAGE(uint8_t messageType, uint16_t secondsElapsed)
 {
     uint8_t buffer[32];
-    memset(buffer, 0, 32);
     IPAddress dest_addr( 255, 255, 255, 255 ); // Broadcast address
 
     if (-1 == _dhcpUdpSocket.beginPacket(dest_addr, DHCP_SERVER_PORT))
@@ -171,14 +179,10 @@ void DhcpClass::send_DHCP_MESSAGE(uint8_t messageType, uint16_t secondsElapsed)
     //put data in w5500 transmit buffer
     _dhcpUdpSocket.write(buffer, 28);
 
-    memset(buffer, 0, 32); // clear local buffer
-
     memcpy(buffer, _dhcpMacAddr, 6); // chaddr
 
     //put data in w5500 transmit buffer
     _dhcpUdpSocket.write(buffer, 16);
-
-    memset(buffer, 0, 32); // clear local buffer
 
     // leave zeroed out for sname && file
     // put in w5500 transmit buffer x 6 (192 bytes)

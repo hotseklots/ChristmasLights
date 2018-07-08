@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jul 7, 2018 6:39:45 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1530981585014</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jul 7, 2018 9:24:31 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1530991471014</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\Users\marcel\Documents\GitHub\ChristmasLights\Software\DMX_Controller_bsp</BspGeneratedLocation>
         <BspSettingsFile>D:\Users\marcel\Documents\GitHub\ChristmasLights\Software\DMX_Controller_bsp\settings.bsp</BspSettingsFile>
         <SopcDesignFile>D:\Users\marcel\Documents\GitHub\ChristmasLights\Firmware\LedPixelController\nios.sopcinfo</SopcDesignFile>

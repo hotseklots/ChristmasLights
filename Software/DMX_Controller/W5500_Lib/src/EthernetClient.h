@@ -8,7 +8,6 @@ class EthernetClient : public Client {
 
 public:
   EthernetClient();
-  EthernetClient(uint8_t sock);
 
   uint8_t status();
   virtual int connect(IPAddress ip, uint16_t port);
@@ -18,7 +17,6 @@ public:
   virtual int read();
   virtual int read(uint8_t *buf, size_t size);
   virtual int peek();
-  virtual void flush();
   virtual void stop();
   virtual uint8_t connected();
   virtual operator bool();
@@ -26,7 +24,7 @@ public:
   virtual bool operator!=(const EthernetClient& rhs) { return !this->operator==(rhs); };
 
   friend class EthernetServer;
-  
+
 
 private:
   static uint16_t _srcport;
