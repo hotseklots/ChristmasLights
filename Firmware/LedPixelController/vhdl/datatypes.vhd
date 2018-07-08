@@ -11,14 +11,14 @@ package types_pkg is
 	end Record;
 
 	
-	type ws281xDataBus is array (31 downto 0) of ws281xDataType;
+	type ws281xDataBus is array (15 downto 0) of ws281xDataType;
 
 	
 	--ws281x constants
-	constant zeroHighTimeNs: integer := 350;
-	constant zeroLowTimeNs: integer := 800;
-	constant oneHighTimeNs: integer := 700;
-	constant oneLowTimeNs: integer := 600;
+	constant zeroHighTimeNs: integer := 500;
+	constant zeroLowTimeNs: integer := 2000;
+	constant oneHighTimeNs: integer := 1200;
+	constant oneLowTimeNs: integer := 1300;
 	constant resetTimeNs: integer := 50000;
  
 	--state machine states

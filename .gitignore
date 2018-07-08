@@ -50,3 +50,9 @@ timing
 PLLJ_PLLSPE_INFO.txt # The generated PLL specification file
 *.db_info
 *.sld
+*.d
+*.o
+*.a
+Software/DMX_Controller/DMX_Controller.objdump
+Software/DMX_Controller/DMX_Controller.map
+Software/DMX_Controller/DMX_Controller.elf
